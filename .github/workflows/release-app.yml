@@ -57,12 +57,6 @@ jobs:
             sed -i 's/^version = ".*"/version = "${{ github.event.inputs.version }}"/' screenpipe-app-tauri/src-tauri/Cargo.toml
           fi
 
-      - name: create draft release
-        uses: crabnebula-dev/cloud-release@v0.2.6
-        with:
-          command: release draft ${{ secrets.CN_APP_SLUG }} --framework tauri
-          api-key: ${{ secrets.CN_API_KEY }}
-
   publish-tauri:
     needs: [check_commit, draft]
     if: github.event_name == 'workflow_dispatch' || needs.check_commit.outputs.should_release == 'true'
