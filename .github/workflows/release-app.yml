@@ -455,5 +455,5 @@ jobs:
         with:
           args: ${{ matrix.tauri-args }}
           projectPath: "./screenpipe-app-tauri"
-          tauriScript: bunx tauri -vvv --no-bundle
+          tauriScript: bunx tauri -vvv
           retryAttempts: 3
