@@ -30,14 +30,6 @@
     "resources": ["assets/*"]
   },
   "plugins": {
-    "updater": {
-      "active": false,
-      "dialog": true,
-      "endpoints": [
-        "https://cdn.crabnebula.app/update/mediar/screenpipe/{{target}}-{{arch}}/{{current_version}}"
-      ],
-      "pubkey": ""
-    },
     "deep-link": {
       "desktop": {
         "schemes": ["screenpipe"]
