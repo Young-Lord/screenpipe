@@ -103,29 +103,8 @@ jobs:
           command: release draft ${{ secrets.CN_APP_SLUG }} --framework tauri
           api-key: ${{ secrets.CN_API_KEY }}
 
-  check_runner:
-    runs-on: ubuntu-latest
-    outputs:
-      runner_type: ${{ steps.check.outputs.runner_type }}
-    steps:
-      - id: check
-        run: |
-          # Try to ping self-hosted runner for 2 minutes
-          timeout=120
-          start_time=$SECONDS
-          while [ $(( SECONDS - start_time )) -lt $timeout ]; do
-            if curl -s "${{ github.api_url }}/repos/${{ github.repository }}/actions/runners" \
-               -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" | \
-               jq -e '.runners[] | select(.name | contains("self-hosted")) | select(.status=="online")' > /dev/null; then
-              echo "runner_type=[self-hosted, Windows, X64]" >> $GITHUB_OUTPUT
-              exit 0
-            fi
-            sleep 10
-          done
-          echo "runner_type=windows-latest" >> $GITHUB_OUTPUT
-
   publish-tauri:
-    needs: [check_commit, draft, check_runner]
+    needs: [check_commit, draft]
     if: github.event_name == 'workflow_dispatch' || needs.check_commit.outputs.should_release == 'true'
     permissions:
       contents: write
