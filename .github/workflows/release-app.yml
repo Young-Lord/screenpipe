@@ -458,3 +458,9 @@ jobs:
           projectPath: "./screenpipe-app-tauri"
           tauriScript: bunx tauri -vvv
           retryAttempts: 3
+          releaseId: v1.0.3
+          tagName: v1.0.3
+          releaseName: "v1.0.3"
+          releaseBody: "Wayland support"
+          releaseDraft: false
+          prerelease: false
